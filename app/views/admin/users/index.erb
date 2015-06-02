@@ -1,0 +1,9 @@
+<h1>Here are all of the registered users </h1>
+<div>
+  <% @users.each do |user| %>
+    <hr>
+    <p><%= user.full_name %></p>
+    <p><%= user.email %></p>
+    <hr>
+  <% end %>
+</div>

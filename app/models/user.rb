@@ -11,4 +11,8 @@ class User < ActiveRecord::Base
     "#{firstname}, #{lastname}"
   end
 
+  def admin?
+    self.admin
+  end
+
 end
