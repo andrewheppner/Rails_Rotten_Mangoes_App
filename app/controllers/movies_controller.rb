@@ -18,7 +18,7 @@ class MoviesController < ApplicationController
   def create
     @movie = Movie.new(movie_params)
     if @movie.save
-      redirect_to :movies
+      redirect_to :movies, notice: "#{@movie.title} was submitted successfully!"
     else
       render :new
     end 
@@ -43,7 +43,7 @@ class MoviesController < ApplicationController
   private
 
   def movie_params
-    params.require(:movie).permit(:title, :release_date, :director, :runtime_in_minutes, :poster_image_url)
+    params.require(:movie).permit(:title, :release_date, :director, :runtime_in_minutes, :poster_image_url, :description)
   end
 
 end
