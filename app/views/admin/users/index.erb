@@ -1,9 +1,14 @@
 <h1>Here are all of the registered users </h1>
-<div>
+
+<%= paginate @users %>
+
+<table>
+  <tr>
+    <td>User Name</td>
+  </tr>
   <% @users.each do |user| %>
-    <hr>
-    <p><%= user.full_name %></p>
-    <p><%= user.email %></p>
-    <hr>
+    <tr>
+      <td><%= link_to "#{user.full_name}", admin_user_path(user) %></td>
+    </tr>
   <% end %>
-</div>
+</table>

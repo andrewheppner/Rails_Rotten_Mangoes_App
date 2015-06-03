@@ -32,3 +32,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'carrierwave'
 
 gem 'tux'
+
+gem 'kaminari'
+
+gem 'faker'
