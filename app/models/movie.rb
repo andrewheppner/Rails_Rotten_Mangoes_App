@@ -1,5 +1,7 @@
 class Movie < ActiveRecord::Base
 
+  RUNTIME_HASH = { "1" => (0..89), "2" => (90..120), "3" => (120..10000) }
+
   has_many :reviews
 
   validates :title, :director, :description, :release_date, presence: true
@@ -8,15 +10,18 @@ class Movie < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
 
+  scope :by_runtime, -> (duration) { where(runtime_in_minutes: RUNTIME_HASH[duration]) }
+
   def review_average
     reviews.sum(:rating_out_of_ten)/reviews.size if reviews.size > 0
   end
 
-  def self.search(search)
+  def self.search(search_params)
     movies = self.all
-    movies = movies.where("title LIKE ?", "%#{search_params[:title]}%") if search_params[:title]
+    movies = movies.where("title like ?", "%#{search_params[:title]}%") if search_params[:title]
+    movies = movies.where("director like ?", "%#{search_params[:director]}%") if search_params[:director]
+    movies = movies.by_runtime(search_params[:duration]) if search_params[:duration]
   end
-
 
   protected
 
@@ -25,6 +30,5 @@ class Movie < ActiveRecord::Base
       errors.add(:release_date, "should be in the future") if release_date < Date.today
     end
   end
-
 
 end
