@@ -11,7 +11,7 @@ RottenMangoes::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
 
   namespace :admin do 
-    resources :users, only: [:index, :show]
+    resources :users, only: [:index, :show, :new, :edit, :update, :destroy]
     root 'users#index'
   end
 
