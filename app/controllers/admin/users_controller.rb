@@ -37,6 +37,12 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to admin_root_path
+  end
+
   protected
 
   def user_params
