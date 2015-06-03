@@ -12,6 +12,12 @@ class Movie < ActiveRecord::Base
     reviews.sum(:rating_out_of_ten)/reviews.size if reviews.size > 0
   end
 
+  def self.search(search)
+    movies = self.all
+    movies = movies.where("title LIKE ?", "%#{search_params[:title]}%") if search_params[:title]
+  end
+
+
   protected
 
   def release_date_is_in_the_future
