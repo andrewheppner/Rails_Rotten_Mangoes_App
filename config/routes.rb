@@ -3,6 +3,7 @@ RottenMangoes::Application.routes.draw do
   root 'movies#index'
 
   resources :movies do 
+    collection { get :search }
     resources :reviews, only: [:new, :create]
   end
 
