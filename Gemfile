@@ -36,3 +36,5 @@ gem 'tux'
 gem 'kaminari'
 
 gem 'faker'
+
+gem 'byebug'
