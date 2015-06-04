@@ -10,9 +10,9 @@ class Movie < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
 
+  scope :by_title, -> (title) { where(title: title) }
+  scope :by_director, -> (director) { where(director: director) }
   scope :by_runtime, -> (duration) { where(runtime_in_minutes: RUNTIME_HASH[duration]) }
-  scope :by_director, -> (director) { where("director LIKE (?)", "%#{director}%") }
-  scope :by_title, -> (title) { where("title LIKE (?)", "%#{title}%") }
 
   def review_average
     reviews.sum(:rating_out_of_ten)/reviews.size if reviews.size > 0
@@ -20,9 +20,11 @@ class Movie < ActiveRecord::Base
 
   def self.search(search_params)
     movies = self.all
+    return movies unless search_params
     movies = movies.by_title(search_params[:title]) if search_params[:title]
     movies = movies.by_director(search_params[:director]) if search_params[:director]
     movies = movies.by_runtime(search_params[:duration]) if search_params[:duration]
+    movies
   end
 
   protected

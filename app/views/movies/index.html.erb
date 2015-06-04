@@ -3,14 +3,15 @@
 <hr>
 
 <%= form_tag("movies#index", :method => "get") do %>
-  <%= label_tag "Search by Title" %>
-  <%= text_field_tag :title %>
-  <%= label_tag "Director" %>
-  <%= text_field_tag :director %>
-  <%= label_tag "Duration" %>
-  <%= select_tag :duration, options_for_select([['Under 90 minutes', 1], ['Between 90 and 120 minutes', 2], ['Over 120 minutes', 3]]) %>
-  <%= submit_tag "Search" %>
+  <%= label_tag(:title, "Title:") %>
+  <%= text_field_tag([:movie, :title]) %>
+  <%= label_tag(:director, "Director:") %>
+  <%= text_field_tag([:movie, :director]) %>
+  <%= label_tag(:duration, "Search for:") %>
+  <%= select(:movie, :duration, [['Shorter than 90 mins', 1], ['Between 90 and 120', 2], ['Longer than 120 mins', 3]]) %> 
+  <%= submit_tag("Search") %>
 <% end %>
+<hr>
 
 <%= render 'movie' %>
 
